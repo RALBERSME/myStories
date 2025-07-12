@@ -1,7 +1,9 @@
 "use client";
 import css from "../styles/Book.module.css";
+// import { BOOK_DATA } from "../pages/singleBookData";
 import { VscArrowCircleLeft } from "react-icons/vsc";
 import { VscArrowCircleRight } from "react-icons/vsc";
+import Image from "next/image";
 import { FaCartShopping } from "react-icons/fa6";
 import React from "react";
 import { useStore } from "../store/store";
@@ -20,7 +22,7 @@ export default function Book({ oneBook, id }) {
     },
     {
       id: 1,
-      title: "The McGregor File",
+      title: "The McGreggor File",
       url: "https://ralbersme.github.io/myCrime/",
       details:
         "In this crime novel, star detective McGreggor opens his investigation files exclusively for you. Learn about his legendary tricks and gimmicks, which he uses to seemingly effortlessly thwart the crooks.",
@@ -86,7 +88,7 @@ export default function Book({ oneBook, id }) {
       details:
         "Get to know the diverse sides of Argentina. In addition to gaining deeper insights into the country's political development and welcoming Evita Peron, you'll also enjoy tango and South American music. Excursions to Tierra del Fuego make this trip incredibly interesting.",
       time: 1.15,
-      smallScreen: true,
+      smallScreen: false,
     },
     {
       id: 9,
@@ -108,6 +110,19 @@ export default function Book({ oneBook, id }) {
     },
   ];
   const book = BOOK_DATA[oneBook.id];
+  const booksArray = [
+    "/myRomance.png",
+    "/myCrime.png",
+    "/myThrill.png",
+    "/thrillerEngl.png",
+    "/myOceanLiner.png",
+    "/myCity.png",
+    "/myAncientTimes.png",
+    "/myOrient.png",
+    "/myVacation.png",
+    "/myLuxury.png",
+    "/myHistory.png",
+  ];
 
   const items = useStore((state) => state.cart.books.length);
   const addBook = useStore((state) => state.addBook);
@@ -124,13 +139,23 @@ export default function Book({ oneBook, id }) {
   return (
     <>
       <div className={css.container}>
+        <div className={css.ImageWrapper}>
+          <Image
+            className={css.bookImage}
+            src={booksArray[id]}
+            alt=""
+            width={650}
+            height={400}
+            style={{ borderRadius: "30px" }}
+          />
+        </div>
         <div className={css.right}>
           <div className={css.cart}>
             <FaCartShopping size={35} color="#2E2E2E" />
             <div className={css.badge}>{items}</div>
           </div>{" "}
           <span>{book.title}</span>
-          <span className={css.details}> {book.details}</span>
+          <span>{book.details}</span>
           <span className={css.readingTime}>
             <span style={{ color: "var(--themeRed)" }}>Reading Time </span>
             {book.time} hours
